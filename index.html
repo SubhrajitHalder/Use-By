@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use By || Subhrajit@codingplex</title>
+    <style>
+        body {
+        font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+ <div class="date">
+    <h2>Use By Date Calculator</h2>
+
+    <label for="manufacturingDate">Manufacturing Date:</label><br>
+    <input type="date" id="manufacturingDate" required>
+
+    <br>
+
+    <label for="numMonths">Number of Months:</label><br>
+    <input type="number" id="numMonths" min="1" required placeholder="number of months">
+
+    <br><br>
+
+    <button onclick="calculateExpiryDate()">Calculate Expiry Date</button>
+
+    <br><br>
+
+    <div id="expiryDateResult"></div>
+ </div>
+
+    <script>
+        function calculateExpiryDate() {
+            var manufacturingDateInput = document.getElementById('manufacturingDate').value;
+            var numMonthsInput = parseInt(document.getElementById('numMonths').value, 10);
+
+            var manufacturingDate = new Date(manufacturingDateInput);
+            
+            if (!isNaN(manufacturingDate.getTime())) {
+                var expiryDate = new Date(manufacturingDate);
+                expiryDate.setMonth(expiryDate.getMonth() + numMonthsInput);
+                expiryDate.setDate(expiryDate.getDate() - 1); // 1 day before
+
+                var formattedExpiryDate = formatDate(expiryDate);
+
+                document.getElementById('expiryDateResult').innerHTML = 'Use By: ' + formattedExpiryDate;
+            } else {
+                document.getElementById('expiryDateResult').innerHTML = 'Invalid Manufacturing Date';
+            }
+        }
+
+        function formatDate(date) {
+            var day = ('0' + date.getDate()).slice(-2);
+            var month = ('0' + (date.getMonth() + 1)).slice(-2);
+            var year = date.getFullYear().toString().slice(-2);
+
+            return day + '-' + month + '-' + year;
+        }
+    </script>
+</body>
+</html>
